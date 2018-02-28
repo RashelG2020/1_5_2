@@ -23,6 +23,38 @@ for r in range(10, 60, 10):
 canopy = canvas.create_arc(0, 50, 600, 650, start=30, extent=120, 
                            width=50, style=ARC) 
 
+# Demontrate changing a property of canvas' item. 
+canvas.itemconfig(circles[2], outline='black') # Change color
+a, b, c, d = canvas.coords(circles[2]) # Get coordinates
+canvas.coords(circles[2], a+2, b-5, c-1, d-5) # Change coordinates
+shadow = canvas.create_oval(550-a,b+80,c-70,d-0, fill='black', outline='black')
+
+# Enter event loop. This displays the GUI and starts listening for events.
+ 
+# get a filename in the same directory as this program
+import os.path 
+directory = os.path.dirname(os.path.abspath(__file__)) 
+filename = os.path.join(directory, 'canopyIcon.jpg')
+	
+# open the image file and convert to an ImageTk object
+import PIL.Image, PIL.ImageTk
+img = PIL.Image.open(filename) # create a PIL.Image from the jpg file
+tkimg = PIL.ImageTk.PhotoImage(img) # convert the PIL.Image to a PIL.TkImage
+
+#add the ImageTk object to the canvas
+icon = canvas.create_image(tkimg, 150, 250)
+
+# Enter event loop. This displays the GUI and starts listening for events.
+
+
 # Enter event loop. This displays the GUI and starts listening for events.
 # The program ends when you close the window.
+
+icon = canvas.create_image(150, 250, image=tkimg)
+
+# bring the icon
+canvas.tag_lower(icon, check)
+
+# Enter event loop. This displays the GUI and starts listening for events.
+
 root.mainloop() 
